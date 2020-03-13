@@ -276,7 +276,7 @@ class Installer {
 
 				// Download the release
 				$tempFile = $this->tempManager->getTemporaryFile('.tar.gz');
-				$timeout = $this->isCLI ? 0 : 120;
+				$timeout = $this->isCLI ? 0 : 2400;
 				$client = $this->clientService->newClient();
 				$client->get($app['releases'][0]['download'], ['save_to' => $tempFile, 'timeout' => $timeout]);
 
