@@ -25,8 +25,11 @@
 
 namespace OCA\User_LDAP\Mapping;
 
+use OC\DB\QueryBuilder\QueryBuilder;
+
 /**
 * Class AbstractMapping
+*
 * @package OCA\User_LDAP\Mapping
 */
 abstract class AbstractMapping {
@@ -182,7 +185,7 @@ abstract class AbstractMapping {
 		$qb = $this->dbc->getQueryBuilder();
 		$qb->select('owncloud_name', 'ldap_dn')
 			->from($this->getTableName(false))
-			->where($qb->expr()->in('ldap_dn', $qb->createNamedParameter($fdns)));
+			->where($qb->expr()->in('ldap_dn', $qb->createNamedParameter($fdns, QueryBuilder::PARAM_STR_ARRAY)));
 		$stmt = $qb->execute();
 
 		$results = $stmt->fetchAll(\Doctrine\DBAL\FetchMode::ASSOCIATIVE);
